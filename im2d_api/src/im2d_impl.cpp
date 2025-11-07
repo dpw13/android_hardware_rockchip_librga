@@ -281,7 +281,7 @@ static IM_STATUS rga_version_above_minimun_range_user_header(rga_version_t &user
 }
 
 static IM_STATUS rga_version_below_minimun_range_user_header(rga_version_t &user_version, rga_version_t &header_version, const rga_version_bind_table_entry_t *least_version_table) {
-    IM_LOGE("The current librga.so's verison is %s, but the referenced header_version(%s) is too old, "
+    IM_LOGE("The current librga.so's version is %s, but the referenced header_version(%s) is too old, "
             "it is recommended to update the librga's header_version to %s and above."
             "You can try to update the SDK or update librga.so and header files "
             "through github(https://github.com/airockchip/librga/)",

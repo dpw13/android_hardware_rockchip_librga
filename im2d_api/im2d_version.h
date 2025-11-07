@@ -22,7 +22,7 @@
 #define RGA_VERSION_STR_HELPER(x) #x
 #define RGA_VERSION_STR(x) RGA_VERSION_STR_HELPER(x)
 
-/* RGA im2d api verison */
+/* RGA im2d api version */
 #define RGA_API_MAJOR_VERSION       1
 #define RGA_API_MINOR_VERSION       10
 #define RGA_API_REVISION_VERSION    0

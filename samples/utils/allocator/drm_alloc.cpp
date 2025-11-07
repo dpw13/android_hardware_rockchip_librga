@@ -77,7 +77,7 @@ void *drm_buf_alloc(int TexWidth, int TexHeight, int bpp, int *fd,  int *handle,
     void *vir_addr = NULL;
     struct drm_prime_handle fd_args;
     struct drm_mode_map_dumb mmap_arg;
-    struct drm_mode_destroy_dumb destory_arg;
+    struct drm_mode_destroy_dumb destroy_arg;
 
     struct drm_mode_create_dumb alloc_arg;
 
@@ -140,7 +140,7 @@ void *drm_buf_alloc(int TexWidth, int TexHeight, int bpp, int *fd,  int *handle,
     {
         printf("failed to create map dumb: %s\n", strerror(errno));
         vir_addr = NULL;
-        goto destory_dumb;
+        goto destroy_dumb;
     }
 
     vir_addr = map = (char *)mmap(0, alloc_arg.size, PROT_READ | PROT_WRITE, MAP_SHARED, drm_fd, mmap_arg.offset);
@@ -148,14 +148,14 @@ void *drm_buf_alloc(int TexWidth, int TexHeight, int bpp, int *fd,  int *handle,
     {
         printf("failed to mmap buffer: %s\n", strerror(errno));
         vir_addr = NULL;
-        goto destory_dumb;
+        goto destroy_dumb;
     }
     return vir_addr;
 
-destory_dumb:
-    memset(&destory_arg, 0, sizeof(destory_arg));
-    destory_arg.handle = alloc_arg.handle;
-    ret = drmIoctl_func(drm_fd, DRM_IOCTL_MODE_DESTROY_DUMB, &destory_arg);
+destroy_dumb:
+    memset(&destroy_arg, 0, sizeof(destroy_arg));
+    destroy_arg.handle = alloc_arg.handle;
+    ret = drmIoctl_func(drm_fd, DRM_IOCTL_MODE_DESTROY_DUMB, &destroy_arg);
     return vir_addr;
 }
 
@@ -174,14 +174,14 @@ int drm_buf_destroy(int buf_fd, int handle, void *drm_buf, size_t size)
 
     munmap(drm_buf, size);
 
-    struct drm_mode_destroy_dumb destory_arg;
-    memset(&destory_arg, 0, sizeof(destory_arg));
-    destory_arg.handle = handle;
+    struct drm_mode_destroy_dumb destroy_arg;
+    memset(&destroy_arg, 0, sizeof(destroy_arg));
+    destroy_arg.handle = handle;
 
-    ret = drmIoctl_func(drm_fd, DRM_IOCTL_MODE_DESTROY_DUMB, &destory_arg);
+    ret = drmIoctl_func(drm_fd, DRM_IOCTL_MODE_DESTROY_DUMB, &destroy_arg);
     if (ret)
     {
-        printf("failed to destory dumb %d, error=%s\n", ret, strerror(errno));
+        printf("failed to destroy dumb %d, error=%s\n", ret, strerror(errno));
     }
 
     if (buf_fd > 0)

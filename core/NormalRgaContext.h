@@ -27,7 +27,7 @@
 #endif
 
 typedef enum {
-    RGA_DRIVER_IOC_UNKONW = 0,
+    RGA_DRIVER_IOC_UNKNOWN = 0,
     RGA_DRIVER_IOC_RGA2,
     RGA_DRIVER_IOC_MULTI_RGA,
 
