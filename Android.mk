@@ -28,7 +28,7 @@
 
 LOCAL_PATH:= $(call my-dir)
 
-ifeq (1,$(strip $(shell expr $(PLATFORM_SDK_VERSION) \< 28)))
+ifeq (true,$(call math_lt,$(PLATFORM_SDK_VERSION),28))
 
 ifneq ($(strip $(BOARD_USE_DRM)), true)
 include $(CLEAR_VARS)
@@ -37,7 +37,7 @@ LOCAL_CFLAGS += -DGL_GLEXT_PROTOTYPES -DEGL_EGLEXT_PROTOTYPES
 
 LOCAL_CFLAGS += -DROCKCHIP_GPU_LIB_ENABLE
 
-ifeq (1,$(strip $(shell expr $(PLATFORM_SDK_VERSION) \> 25)))
+ifeq (true,$(call math_gt,$(PLATFORM_SDK_VERSION),25))
 LOCAL_CFLAGS += -DUSE_AHARDWAREBUFFER=1
 endif
 
@@ -68,7 +68,7 @@ LOCAL_SHARED_LIBRARIES := \
     libhardware
 
 #has no "external/stlport" from Android 6.0 on
-ifeq (1,$(strip $(shell expr $(PLATFORM_VERSION) \< 6.0)))
+ifeq (true,$(call math_lt,$(PLATFORM_SDK_VERSION),23))
 LOCAL_C_INCLUDES += \
     external/stlport/stlport
 
@@ -93,7 +93,7 @@ LOCAL_SRC_FILES:= \
     im2d_api/src/im2d_impl.cpp \
     im2d_api/src/im2d.cpp
 
-ifneq (1,$(strip $(shell expr $(PLATFORM_VERSION) \< 6.0)))
+ifeq (true,$(call math_gt_or_eq,$(PLATFORM_SDK_VERSION),23))
 ifeq ($(strip $(TARGET_BOARD_PLATFORM_GPU)), mali-t720)
 LOCAL_CFLAGS += -DMALI_PRODUCT_ID_T72X=1
 LOCAL_CFLAGS += -DMALI_AFBC_GRALLOC=0
@@ -173,7 +173,7 @@ LOCAL_CFLAGS := \
 
 LOCAL_CFLAGS += -DANDROID
 
-ifeq (1,$(strip $(shell expr $(PLATFORM_SDK_VERSION) \> 25)))
+ifeq (true,$(call math_gt,$(PLATFORM_SDK_VERSION),25))
 LOCAL_CFLAGS += -DUSE_AHARDWAREBUFFER=1
 endif
 
@@ -181,7 +181,7 @@ ifneq ($(strip $(TARGET_BOARD_PLATFORM)),rk3368)
 LOCAL_SHARED_LIBRARIES += libgralloc_drm
 endif
 
-ifneq (1,$(strip $(shell expr $(PLATFORM_VERSION) \< 6.9)))
+ifeq (true,$(call math_gt_or_eq,$(PLATFORM_SDK_VERSION),24))
 LOCAL_CFLAGS += -DANDROID_7_DRM
 LOCAL_CFLAGS += -DRK_DRM_GRALLOC=1
 endif
@@ -194,7 +194,7 @@ ifeq ($(strip $(TARGET_BOARD_PLATFORM)),rk3126c)
 LOCAL_CFLAGS += -DRK3126C
 endif
 
-ifneq (1,$(strip $(shell expr $(PLATFORM_VERSION) \< 8.0)))
+ifeq (true,$(call math_gt_or_eq,$(PLATFORM_SDK_VERSION),26))
 LOCAL_CFLAGS += -DANDROID_8
 endif
 
@@ -249,7 +249,7 @@ LOCAL_SHARED_LIBRARIES += \
 LOCAL_CFLAGS := \
         -DLOG_TAG=\"librga-drm\"
 
-ifeq (1,$(strip $(shell expr $(PLATFORM_SDK_VERSION) \> 25)))
+ifeq (true,$(call math_gt,$(PLATFORM_SDK_VERSION),25))
 LOCAL_CFLAGS += -DUSE_AHARDWAREBUFFER=1
 endif
 

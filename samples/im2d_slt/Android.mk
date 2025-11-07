@@ -44,7 +44,7 @@ LOCAL_HEADER_LIBRARIES += \
     libbinder_headers
 
 #has no "external/stlport" from Android 6.0 on
-ifeq (1,$(strip $(shell expr $(PLATFORM_VERSION) \< 6.0)))
+ifeq (true,$(call math_lt,$(PLATFORM_SDK_VERSION),23))
 LOCAL_C_INCLUDES += \
     external/stlport/stlport
 
