@@ -73,7 +73,7 @@ func Defaults(ctx android.LoadHookContext) {
 func getSrcs(ctx android.BaseContext, sdkVersion int) ([]string) {
     var src []string
 
-    if (strings.EqualFold(ctx.AConfig().Getenv("TARGET_RK_GRALLOC_VERSION"),"4") ) {
+    if (strings.EqualFold(ctx.AConfig().VendorConfig("rockchip").String("gralloc_version"),"4") ) {
         if (sdkVersion >= 30 ) {
             src = append(src, "core/platform_gralloc4.cpp")
         }
@@ -86,12 +86,12 @@ func getCflags(ctx android.BaseContext, sdkVersion int) ([]string) {
     var cppflags []string
 
     //该打印输出为: TARGET_PRODUCT:rk3328 fmt.Println("TARGET_PRODUCT:",ctx.AConfig().Getenv("TARGET_PRODUCT")) //通过 strings.EqualFold 比较字符串，可参考go语言字符串对比
-    if (strings.EqualFold(ctx.AConfig().Getenv("TARGET_BOARD_PLATFORM"),"rk3368") ) {
+    if (strings.EqualFold(ctx.AConfig().VendorConfig("ANDROID").String("target_board_platform"),"rk3368") ) {
     //添加 DEBUG 宏定义
         cppflags = append(cppflags,"-DRK3368=1")
     }
 
-    if (strings.EqualFold(ctx.AConfig().Getenv("TARGET_RK_GRALLOC_VERSION"),"4") ) {
+    if (strings.EqualFold(ctx.AConfig().VendorConfig("rockchip").String("gralloc_version"),"4") ) {
         if (sdkVersion >= 30 ) {
             cppflags = append(cppflags,"-DUSE_GRALLOC_4")
         }
@@ -109,7 +109,7 @@ func getCflags(ctx android.BaseContext, sdkVersion int) ([]string) {
 func getSharedLibs(ctx android.BaseContext, sdkVersion int) ([]string) {
     var libs []string
 
-    if (strings.EqualFold(ctx.AConfig().Getenv("TARGET_RK_GRALLOC_VERSION"),"4") ) {
+    if (strings.EqualFold(ctx.AConfig().VendorConfig("rockchip").String("gralloc_version"),"4") ) {
         if (sdkVersion >= 30 ) {
             libs = append(libs, "libgralloctypes")
             libs = append(libs, "libhidlbase")
@@ -127,7 +127,7 @@ func getSharedLibs(ctx android.BaseContext, sdkVersion int) ([]string) {
 func getIncludeDirs(ctx android.BaseContext, sdkVersion int) ([]string) {
     var dirs []string
 
-    if (strings.EqualFold(ctx.AConfig().Getenv("TARGET_RK_GRALLOC_VERSION"),"4") ) {
+    if (strings.EqualFold(ctx.AConfig().VendorConfig("rockchip").String("gralloc_version"),"4") ) {
         if (sdkVersion >= 30 ) {
             dirs = append(dirs, "hardware/rockchip/libgralloc/bifrost")
             dirs = append(dirs, "hardware/rockchip/libgralloc/bifrost/src")
