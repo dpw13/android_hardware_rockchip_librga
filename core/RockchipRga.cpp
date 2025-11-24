@@ -17,10 +17,7 @@
  */
 
 #define LOG_NDEBUG 0
-#ifdef LOG_TAG
-#undef LOG_TAG
 #define LOG_TAG "rockchiprga"
-#endif
 
 #include <stdint.h>
 #include <sys/types.h>

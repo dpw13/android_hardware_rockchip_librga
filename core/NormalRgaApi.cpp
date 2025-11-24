@@ -16,6 +16,8 @@
  * limitations under the License.
  */
 
+#define LOG_TAG "norm_rga_api"
+
 #include "NormalRga.h"
 #include "NormalRgaContext.h"
 #include "rga.h"

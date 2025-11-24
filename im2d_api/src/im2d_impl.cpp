@@ -16,12 +16,7 @@
  * limitations under the License.
  */
 
-#ifdef LOG_TAG
-#undef LOG_TAG
 #define LOG_TAG "im2d_rga_impl"
-#else
-#define LOG_TAG "im2d_rga_impl"
-#endif
 
 #include <stdio.h>
 #include <string.h>
